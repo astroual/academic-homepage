@@ -94,7 +94,7 @@
 })();
 async function updateLastCommitDate() {
     try {
-        const response = await fetch('https://api.github.com/repos/yangyang069/yangyang069.github.io/commits?per_page=1');
+        const response = await fetch('https://api.github.com/repos/Louaq/academic-homepage/commits?per_page=1');
         const commits = await response.json();
 
         if (commits && commits.length > 0) {
@@ -781,6 +781,12 @@ function setupEmailCopy() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    // 设置当前年份
+    const currentYearElement = document.getElementById('current-year');
+    if (currentYearElement) {
+        currentYearElement.textContent = new Date().getFullYear();
+    }
+    
     updateLastCommitDate();
     setupSmoothScrolling();
     handleScroll();
@@ -836,11 +842,16 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // 更新图标
     function updateThemeIcon(theme) {
-        const icon = themeToggle.querySelector('i');
+        const sunIcon = themeToggle.querySelector('.sun-icon');
+        const moonIcon = themeToggle.querySelector('.moon-icon');
         if (theme === 'dark') {
-            icon.className = 'fas fa-moon';
+            // 暗黑模式：显示月亮图标
+            if (sunIcon) sunIcon.style.display = 'none';
+            if (moonIcon) moonIcon.style.display = 'block';
         } else {
-            icon.className = 'fas fa-sun';
+            // 明亮模式：显示太阳图标
+            if (sunIcon) sunIcon.style.display = 'block';
+            if (moonIcon) moonIcon.style.display = 'none';
         }
     }
     

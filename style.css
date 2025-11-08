@@ -2895,8 +2895,8 @@ strong {
     height: 40px;
     background-color: #f8f8f8;
     color: #2C5AA0;
-    border: 1px solid #ddd;
     border-radius: 10px;
+    border: 1px solid #ddd;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2904,6 +2904,17 @@ strong {
     z-index: 1000;
     font-size: 18px;
     transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+[data-theme="dark"] .theme-toggle {
+    color: #70B7FD;
+    background-color: #404040;
+    border-color: #555;
 }
 
 /* 回到顶部按钮样式 */

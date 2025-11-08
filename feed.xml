@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <atom:link href="https://yangyang.wiki/feed.xml" rel="self" type="application/rss+xml" />
+    <title>YangYang (杨杨) - Homepage</title>
+    <description>YangYang's Homepage, computer technology MS student at South-Central Minzu University, focusing on Multimodal Medical Image Analysis and Computer Vision</description>
+    <link>https://yangyang.wiki/</link>
+    <pubDate>Mon, 27 Jan 2025 00:00:00 +0800</pubDate>
+    <lastBuildDate>Mon, 27 Jan 2025 00:00:00 +0800</lastBuildDate>
+    <generator>Custom RSS Generator</generator>
+    <language>en-US</language>
+    <webMaster>yangyang@mail.scuec.edu.cn (Yang Yang)</webMaster>
+    <managingEditor>yangyang@mail.scuec.edu.cn (Yang Yang)</managingEditor>
+    <copyright>Copyright 2024-2025 Yang Yang</copyright>
+    <image>
+      <url>https://yangyang666.oss-cn-chengdu.aliyuncs.com/academic/favicon.png</url>
+      <title>YangYang (杨杨) - Homepage</title>
+      <link>https://yangyang.wiki/</link>
+    </image>
+    <item>
+      <title>Paper Accepted at TVC 2025</title>
+      <description>One paper titled "HSFPN-Det: An Effective Model for Detecting Rice Pests and Diseases" was accepted by The Visual Computer (TVC) journal in October 2025.</description>
+      <pubDate>Wed, 01 Oct 2025 00:00:00 +0800</pubDate>
+      <link>https://yangyang.wiki/#publications</link>
+      <guid isPermaLink="false">publication-tvc2025-accepted</guid>
+      <category>Publication</category>
+      <author>yangyang@mail.scuec.edu.cn (Yang Yang)</author>
+    </item>
+    <item>
+      <title>Outstanding Graduate Student Award</title>
+      <description>Yang Yang was awarded the Outstanding Graduate Student for master's students in September 2025.</description>
+      <pubDate>Mon, 01 Sep 2025 00:00:00 +0800</pubDate>
+      <link>https://yangyang.wiki/#awards</link>
+      <guid isPermaLink="false">award-outstanding-2025</guid>
+      <category>Award</category>
+      <author>yangyang@mail.scuec.edu.cn (Yang Yang)</author>
+    </item>
+    <item>
+      <title>First-class Academic Scholarship</title>
+      <description>Yang Yang received the First-class Academic Scholarship for master's students (TOP 1).</description>
+      <pubDate>Mon, 01 Sep 2025 00:00:00 +0800</pubDate>
+      <link>https://yangyang.wiki/#awards</link>
+      <guid isPermaLink="false">scholarship-first-class-2025</guid>
+      <category>Award</category>
+      <author>yangyang@mail.scuec.edu.cn (Yang Yang)</author>
+    </item>
+    <item>
+      <title>TexStudio: OCR mathematical formula recognition</title>
+      <description>A modern LaTeX formula recognition desktop application built with TypeScript and Electron.</description>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 +0800</pubDate>
+      <link>https://github.com/Louaq/TexStudio</link>
+      <guid isPermaLink="false">project-texstudio</guid>
+      <category>Project</category>
+      <author>yangyang@mail.scuec.edu.cn (Yang Yang)</author>
+    </item>
+    <item>
+      <title>HSFPN-Det: An Effective Model for Detecting Rice Pests and Diseases</title>
+      <description>A novel deep learning model for rice pest and disease detection, accepted by The Visual Computer (TVC) journal. Authors: Yang Yang, Yuxin Hong, Wenjie Yu, Xiao Zhang, Bo Yang, Meng Shi, Yangguang Sun, Jun Wang, Jianlin Zhu.</description>
+      <pubDate>Thu, 01 May 2025 00:00:00 +0800</pubDate>
+      <link>https://yangyang.wiki/#publications</link>
+      <guid isPermaLink="false">publication-hsfpn-det-2025</guid>
+      <category>Publication</category>
+      <author>yangyang@mail.scuec.edu.cn (Yang Yang)</author>
+    </item>
+    <item>
+      <title>An Improved YOLOv8-Based Rice Pest and Disease Detection Method</title>
+      <description>We propose an improved YOLOv8-based method for accurate detection of rice pests and diseases. Published in Computer Graphics International Conference (CGI) 2024. Authors: Yang Yang, Jianlin Zhu, Bo Yang, Xiao Zhang, Jin Huang.</description>
+      <pubDate>Sun, 01 Dec 2024 00:00:00 +0800</pubDate>
+      <link>https://link.springer.com/chapter/10.1007/978-3-031-82024-3_8</link>
+      <guid isPermaLink="false">publication-cgi2024</guid>
+      <category>Publication</category>
+      <author>yangyang@mail.scuec.edu.cn (Yang Yang)</author>
+    </item>
+    <item>
+      <title>Rice Pest and Disease Detection System</title>
+      <description>An intelligent system for automated detection and classification of rice pests and diseases using deep learning techniques.</description>
+      <pubDate>Tue, 01 Oct 2024 00:00:00 +0800</pubDate>
+      <link>https://github.com/Louaq/CGI2024</link>
+      <guid isPermaLink="false">project-rice-pest</guid>
+      <category>Project</category>
+      <author>yangyang@mail.scuec.edu.cn (Yang Yang)</author>
+    </item>
+    <item>
+      <title>CGI2024 Conference Talk - An Improved YOLOv8-Based Rice Pest and Disease Detection Method</title>
+      <description>Presented our novel approach for rice pest and disease detection using improved YOLOv8 architecture at the International Conference on Computer Graphics (CGI), 2024.</description>
+      <pubDate>Sun, 01 Dec 2024 00:00:00 +0800</pubDate>
+      <link>https://drive.google.com/file/d/1MYGWupPT0zrqpIpRvBc7m3qs2gzznOiw/view?usp=drive_link</link>
+      <guid isPermaLink="false">talk-cgi2024</guid>
+      <category>Talk</category>
+      <author>yangyang@mail.scuec.edu.cn (Yang Yang)</author>
+    </item>
+  </channel>
+</rss>

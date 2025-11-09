@@ -13,6 +13,31 @@
         <meta name="theme-color" content="#4b2e83">
         <meta name="msapplication-TileColor" content="#4b2e83">
     <link rel="icon" type="image/x-icon" href="https://yangyang666.oss-cn-chengdu.aliyuncs.com/academic/favicon.png">
+    <!-- 关键：在任何CSS和其他脚本之前立即恢复滚动位置 -->
+    <script>
+        // 禁用浏览器自动滚动恢复
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        // 立即恢复滚动位置，在页面渲染之前
+        (function() {
+            var savedScrollPosition = sessionStorage.getItem('scrollPosition');
+
+            // 无论任何情况，只要有保存的滚动位置就恢复
+            if (savedScrollPosition) {
+                var scrollY = parseInt(savedScrollPosition, 10);
+                if (scrollY > 0) {
+                    // 创建style元素来锁定滚动位置
+                    var style = document.createElement('style');
+                    style.id = 'scroll-lock';
+                    style.textContent = 'html,body{overflow:hidden!important;position:fixed!important;top:-' + scrollY + 'px!important;left:0!important;right:0!important;width:100%!important;}';
+                    document.head.appendChild(style);
+                    // 保存滚动位置供后续使用
+                    window.__savedScrollY = scrollY;
+                }
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="https://cdnjs.webstatic.cn/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.webstatic.cn/ajax/libs/academicons/1.9.4/css/academicons.min.css">
     <link rel="stylesheet" href="https://cdn.iocdn.cc/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">

@@ -1,16 +1,10 @@
 /* 全局平滑滚动 */
 html {
+    scroll-behavior: auto;
+}
+
+html.smooth-scroll {
     scroll-behavior: smooth;
-}
-
-html.loading,
-html.loading * {
-    scroll-behavior: auto !important;
-    scroll-snap-type: none !important;
-}
-
-html.loading body {
-    overflow-anchor: none;
 }
 
 /* 顶部导航栏 */
@@ -1548,6 +1542,11 @@ strong {
 .student-note {
     margin-bottom: 15px;
 
+}
+
+/* 为所有带id的section添加scroll-margin-top，精确控制滚动位置 */
+section[id] {
+    scroll-margin-top: 80px; /* 导航栏高度 + 间距 */
 }
 
 /* 新闻部分滚动样式 */
@@ -3706,3 +3705,7 @@ strong {
 [data-theme="dark"] .profile-content h1 {
     color: #e0e0e0;
 }
+
+
+
+

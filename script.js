@@ -1,95 +1,54 @@
 (function () {
-    // 初始化主题：优先使用localStorage中的设置，其次使用系统偏好
+    // 初始化主题
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', initialTheme);
-    
-    // 全局变量：标记是否正在进行程序性滚动
+
+    // 全局变量
     window.isProgrammaticScroll = false;
-    
-    // 检测用户是否手动滚动过页面
-    let userHasScrolled = false;
     let scrollTimeout;
-    let programmaticScrollTimeout;
-    
-    // 监听用户滚动事件
-    window.addEventListener('scroll', function() {
-        // 如果正在进行程序性滚动，不标记为用户手动滚动
+
+    // 滚动事件监听 - 持续保存滚动位置
+    function handleScroll() {
         if (window.isProgrammaticScroll) {
             return;
         }
-        
-        // 标记用户已手动滚动
-        if (!userHasScrolled) {
-            userHasScrolled = true;
-            // 将滚动状态保存到sessionStorage
-            sessionStorage.setItem('userHasScrolled', 'true');
-            // 保存当前滚动位置
-            sessionStorage.setItem('scrollPosition', window.pageYOffset.toString());
-        }
-        
-        // 清除之前的定时器
+
         clearTimeout(scrollTimeout);
-        // 延迟更新滚动位置，避免频繁写入
         scrollTimeout = setTimeout(function() {
+            // 始终保存当前滚动位置
             sessionStorage.setItem('scrollPosition', window.pageYOffset.toString());
         }, 100);
-    }, { passive: true });
-    
-    // 检查是否有保存的滚动位置
-    const savedScrollPosition = sessionStorage.getItem('scrollPosition');
-    const hasUserScrolled = sessionStorage.getItem('userHasScrolled') === 'true';
-    
-    if (window.location.hash) {
-        document.documentElement.classList.add('loading');
+    }
 
-        const savedHash = window.location.hash;
-        history.replaceState(null, null, ' ');
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            history.replaceState(null, null, savedHash);
-            
-            requestAnimationFrame(function() {
-                setTimeout(function() {
-                    // 如果用户之前手动滚动过，恢复滚动位置而不是跳转到hash
-                    if (hasUserScrolled && savedScrollPosition) {
-                        window.scrollTo(0, parseInt(savedScrollPosition, 10));
-                        userHasScrolled = true;
-                    } else {
-                        // 首次加载或用户未手动滚动，才自动滚动到hash位置
-                        window.isProgrammaticScroll = true;
-                        const targetElement = document.querySelector(savedHash);
-                        if (targetElement) {
-                            const nav = document.querySelector('.top-nav');
-                            const navHeight = nav ? nav.offsetHeight : 70;
-                            const targetTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
-                            const scrollPosition = targetTop - navHeight - 10;
-                            
-                            window.scrollTo(0, scrollPosition);
-                        }
-                        // 程序性滚动完成后，延迟清除标记（给滚动动画时间）
-                        clearTimeout(programmaticScrollTimeout);
-                        programmaticScrollTimeout = setTimeout(function() {
-                            window.isProgrammaticScroll = false;
-                        }, 1000);
-                    }
-                    
-                    document.documentElement.classList.remove('loading');
-                }, 100);
-            });
-        });
-    } else {
-        // 没有hash时，如果有保存的滚动位置，恢复它
-        if (hasUserScrolled && savedScrollPosition) {
-            document.addEventListener('DOMContentLoaded', function() {
-                requestAnimationFrame(function() {
-                    setTimeout(function() {
-                        window.scrollTo(0, parseInt(savedScrollPosition, 10));
-                    }, 100);
-                });
-            });
+    // DOM加载完成后的处理
+    function handleDOMLoaded() {
+        // 移除滚动锁定并恢复滚动位置
+        const scrollLock = document.getElementById('scroll-lock');
+        if (scrollLock) {
+            const scrollY = window.__savedScrollY || 0;
+            scrollLock.remove();
+            // 立即恢复滚动位置
+            if (scrollY > 0) {
+                window.scrollTo(0, scrollY);
+            }
         }
+
+        // 添加滚动监听
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        // 启用平滑滚动
+        setTimeout(function() {
+            document.documentElement.classList.add('smooth-scroll');
+        }, 100);
+    }
+
+    // 绑定事件
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', handleDOMLoaded);
+    } else {
+        handleDOMLoaded();
     }
 })();
 async function updateLastCommitDate() {
@@ -136,12 +95,14 @@ function setupSmoothScrolling() {
     function scrollToTarget(targetId, smooth = true) {
         // 标记为程序性滚动
         window.isProgrammaticScroll = true;
-        
+
         if (targetId === '#home') {
             window.scrollTo({
                 top: 0,
                 behavior: smooth ? 'smooth' : 'auto'
             });
+            // 立即保存滚动位置
+            sessionStorage.setItem('scrollPosition', '0');
             // 程序性滚动完成后，延迟清除标记（给滚动动画时间）
             setTimeout(function() {
                 window.isProgrammaticScroll = false;
@@ -160,7 +121,10 @@ function setupSmoothScrolling() {
                 top: scrollPosition,
                 behavior: smooth ? 'smooth' : 'auto'
             });
-            
+
+            // 立即保存目标滚动位置
+            sessionStorage.setItem('scrollPosition', scrollPosition.toString());
+
             // 程序性滚动完成后，延迟清除标记（给滚动动画时间）
             setTimeout(function() {
                 window.isProgrammaticScroll = false;
@@ -176,7 +140,7 @@ function setupSmoothScrolling() {
         navTitle.addEventListener('click', function (e) {
             e.preventDefault();
             scrollToTarget('#home');
-            
+
             history.pushState(null, null, '#home');
 
             desktopNavLinks.forEach(link => link.classList.remove('active'));
@@ -190,9 +154,9 @@ function setupSmoothScrolling() {
             if (this.getAttribute('href').startsWith('#')) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
-                
+
                 scrollToTarget(targetId);
-                
+
                 history.pushState(null, null, targetId);
 
                 desktopNavLinks.forEach(link => link.classList.remove('active'));
@@ -298,13 +262,15 @@ function setupMobileMenu() {
 
                 // 标记为程序性滚动
                 window.isProgrammaticScroll = true;
-                
+
                 // 使用统一的滚动函数
                 if (targetId === '#home') {
                     window.scrollTo({
                         top: 0,
                         behavior: 'smooth'
                     });
+                    // 立即保存滚动位置
+                    sessionStorage.setItem('scrollPosition', '0');
                     // 程序性滚动完成后，延迟清除标记（给滚动动画时间）
                     setTimeout(function() {
                         window.isProgrammaticScroll = false;
@@ -321,6 +287,8 @@ function setupMobileMenu() {
                             top: scrollPosition,
                             behavior: 'smooth'
                         });
+                        // 立即保存目标滚动位置
+                        sessionStorage.setItem('scrollPosition', scrollPosition.toString());
                         // 程序性滚动完成后，延迟清除标记（给滚动动画时间）
                         setTimeout(function() {
                             window.isProgrammaticScroll = false;
@@ -801,7 +769,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('popstate', function() {
         // 标记为程序性滚动
         window.isProgrammaticScroll = true;
-        
+
         if (window.location.hash) {
             const targetElement = document.querySelector(window.location.hash);
             if (targetElement) {
@@ -809,11 +777,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const navHeight = nav ? nav.offsetHeight : 70;
                 const targetTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
                 const scrollPosition = targetTop - navHeight - 10;
-                
+
                 window.scrollTo({
                     top: scrollPosition,
                     behavior: 'smooth'
                 });
+                // 立即保存目标滚动位置
+                sessionStorage.setItem('scrollPosition', scrollPosition.toString());
                 // 程序性滚动完成后，延迟清除标记（给滚动动画时间）
                 setTimeout(function() {
                     window.isProgrammaticScroll = false;
@@ -826,6 +796,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 top: 0,
                 behavior: 'smooth'
             });
+            // 立即保存滚动位置
+            sessionStorage.setItem('scrollPosition', '0');
             // 程序性滚动完成后，延迟清除标记（给滚动动画时间）
             setTimeout(function() {
                 window.isProgrammaticScroll = false;
@@ -902,15 +874,23 @@ document.addEventListener('DOMContentLoaded', function () {
     backToTopButton.addEventListener('click', function () {
         // 标记为程序性滚动
         window.isProgrammaticScroll = true;
-        
+
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
-        
+
+        // 立即保存滚动位置
+        sessionStorage.setItem('scrollPosition', '0');
+
         // 程序性滚动完成后，延迟清除标记（给滚动动画时间）
         setTimeout(function() {
             window.isProgrammaticScroll = false;
         }, 1000);
     });
 });
+
+
+
+
+

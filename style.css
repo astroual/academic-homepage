@@ -594,13 +594,14 @@ body {
     color: #8fc5ff;
 }
 
-[data-theme="dark"] .about-section p a {
+[data-theme="dark"] .about-section p a,
+[data-theme="dark"] .about-section a {
     color: #70B7FD;
-    border-bottom-color: #ffd700;
+    background-image: linear-gradient(rgba(255, 211, 30, 0.5), rgba(255, 211, 30, 0.5));
 }
 
-[data-theme="dark"] .about-section p a:hover {
-    border-bottom-color: #ffed4e;
+[data-theme="dark"] .about-section p a:hover,
+[data-theme="dark"] .about-section a:hover {
     color: #8fc5ff;
 }
 
@@ -852,21 +853,28 @@ body {
 }
 
 /* About Section 链接涂鸦下划线效果 */
+.pub-links a,
+.project-links a,
+.talk-links a,
 .about-section p a,
 .about-section a {
-    position: relative;
     text-decoration: none !important;
-    color: #2c5aa0 !important;
-    border-bottom: 2px solid #ffd700 !important;
+    color: #000 !important;
+    background-image: linear-gradient(rgba(255, 211, 30, 0.5), rgba(255, 211, 30, 0.5));
+    background-repeat: no-repeat;
+    background-size: 100% 40%;
+    background-position: 0 90%;
+    transition: background-size 200ms cubic-bezier(0, 0.8, 0.13, 1);
     padding-bottom: 1px;
-    display: inline;
 }
 
+.pub-links a:hover,
+.project-links a:hover,
+.talk-links a:hover,
 .about-section p a:hover,
 .about-section a:hover {
     text-decoration: none !important;
-    border-bottom: 3px solid #ffed4e !important;
-    color: #2c5aa0 !important;
+    background-size: 100% 90%;
 }
 
 /* 小屏幕设备优化：避免两端对齐导致的文字间距过大问题 */
@@ -1100,16 +1108,12 @@ body {
 }
 
 .pub-links li:not(:has(a)) {
-    color: #2c5aa0;
+    color: #333;
 }
 
 .pub-links a {
     color: #2c5aa0;
     text-decoration: none;
-}
-
-.pub-links a:hover {
-    text-decoration: underline;
 }
 
 /* Projects Section */

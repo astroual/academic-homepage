@@ -3729,6 +3729,24 @@ section[id] {
     color: #e0e0e0;
 }
 
+/* Live2D 看板娘样式 */
+/* #live2d-widget {
+    position: fixed !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    z-index: 999 !important;
+    pointer-events: auto !important;
+}
 
+#live2d-widget canvas {
+    pointer-events: auto !important;
+}
+
+/* 移动端隐藏看板娘（可选，根据需求调整） */
+/*@media (max-width: 768px) {
+    #live2d-widget {
+        display: none;
+    }
+} */
 
 

@@ -1629,6 +1629,67 @@ section[id] {
     margin-bottom: 30px;
 }
 
+/* Visitor Map Section */
+.visitor-map-section {
+    margin-bottom: 30px;
+}
+
+.visitor-map-section h2 {
+    margin-bottom: 15px;
+}
+
+.visitor-map-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0;
+    overflow: hidden;
+}
+
+/* 使用 transform scale 缩小地图，保持完整显示 */
+.visitor-map-container a {
+    transform: scale(0.6);
+    transform-origin: center center;
+    display: block !important;
+    margin: -80px auto !important;
+}
+
+.visitor-map-container a img,
+.visitor-map-container img {
+    display: block !important;
+    border: none !important;
+}
+
+/* 移动端地图样式 */
+@media (max-width: 900px) {
+    .visitor-map-container {
+        padding: 15px 0;
+    }
+
+    .visitor-map-container a {
+        transform: scale(0.5);
+        margin: -100px auto !important;
+    }
+}
+
+/* 小屏幕移动端优化 */
+@media (max-width: 480px) {
+    .visitor-map-section {
+        margin-bottom: 20px;
+    }
+
+    .visitor-map-container {
+        padding: 10px 0;
+    }
+
+    .visitor-map-container a {
+        transform: scale(0.45);
+        margin: -110px auto !important;
+    }
+}
+
 
 
 /* Footer */

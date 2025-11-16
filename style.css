@@ -1650,7 +1650,7 @@ section[id] {
 
 /* 使用 transform scale 缩小地图，保持完整显示 */
 .visitor-map-container a {
-    transform: scale(0.6);
+    transform: scale(0.7);
     transform-origin: center center;
     display: block !important;
     margin: -80px auto !important;
@@ -3744,5 +3744,3 @@ section[id] {
         display: none;
     }
 } */
-
-

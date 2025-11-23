@@ -2207,7 +2207,7 @@ section[id] {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        gap: 28px;
+        gap: 20px;
     }
 
     .profile-link-item > span:not(.email-copy-toast) {
@@ -2720,7 +2720,7 @@ section[id] {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        gap: 28px;
+        gap: 20px;
     }
 
     .profile-link-item > span:not(.email-copy-toast) {

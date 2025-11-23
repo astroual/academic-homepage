@@ -363,109 +363,122 @@ function setupPublicationsFilter() {
     const showAllLink = document.getElementById('show-all-link');
     const publicationsList = document.querySelector('.publications-list');
 
-    if (!showSelectedLink || !showAllLink || !publicationsList) return;
-
-    // 获取所有publication项目
-    const allPublications = Array.from(document.querySelectorAll('.publication-item'));
-
-    // 显示已接收的文章（没有under review标志）
-    function showSelectedPublications() {
-        // 立即更新链接状态，提供即时视觉反馈
-        showSelectedLink.classList.add('active');
-        showSelectedLink.classList.remove('inactive');
-        showAllLink.classList.remove('active');
-        showAllLink.classList.add('inactive');
-
-        // 隐藏所有年份标题
-        document.querySelectorAll('.year-header').forEach(header => {
-            header.style.display = 'none';
-        });
-
-        // 隐藏under-review文章，显示accepted文章
-        allPublications.forEach(item => {
-            if (item.dataset.status === 'under-review') {
-                item.style.display = 'none';
-            } else {
-                item.style.display = 'flex';
-            }
-        });
-
-        // 使用DocumentFragment来批量操作DOM，提高性能
-        const fragment = document.createDocumentFragment();
-
-        // 过滤已接收的文章
-        const acceptedPublications = allPublications.filter(item => {
-            return item.dataset.status === 'accepted';
-        });
-
-        // 按日期排序（最新的在前）
-        acceptedPublications.sort((a, b) => {
-            const dateA = new Date(a.dataset.date + '-01');
-            const dateB = new Date(b.dataset.date + '-01');
-            return dateB - dateA;
-        });
-
-        // 添加到fragment
-        acceptedPublications.forEach(item => {
-            fragment.appendChild(item);
-        });
-
-        // 一次性更新DOM
-        publicationsList.innerHTML = '';
-        publicationsList.appendChild(fragment);
+    if (!showSelectedLink || !showAllLink || !publicationsList) {
+        return;
     }
 
-    // 显示所有文章，按年份分组
-    function showAllPublications() {
-        // 立即更新链接状态，提供即时视觉反馈
-        showAllLink.classList.add('active');
-        showAllLink.classList.remove('inactive');
-        showSelectedLink.classList.remove('active');
-        showSelectedLink.classList.add('inactive');
+    // 初始抓取所有 publication 项目
+    const originalPublications = Array.from(document.querySelectorAll('.publication-item'));
 
-        // 使用DocumentFragment来批量操作DOM，提高性能
-        const fragment = document.createDocumentFragment();
+    // 布局是否已经按年份分组初始化
+    let layoutInitialized = false;
+    // 当前模式: 'selected' 或 'all'
+    let currentMode = 'selected';
 
-        // 按年份分组
+    // 只在第一次时构建「按年份分组 + 排序」的 DOM 结构
+    function buildGroupedLayoutOnce() {
+        if (layoutInitialized) return;
+        layoutInitialized = true;
+
         const publicationsByYear = {};
-        allPublications.forEach(item => {
-            const year = item.dataset.date.split('-')[0];
+
+        originalPublications.forEach(item => {
+            const date = item.dataset.date || '';
+            const year = date.split('-')[0] || 'Unknown';
             if (!publicationsByYear[year]) {
                 publicationsByYear[year] = [];
             }
             publicationsByYear[year].push(item);
         });
 
-        // 按年份排序（最新的在前）
         const sortedYears = Object.keys(publicationsByYear).sort((a, b) => b - a);
+        const fragment = document.createDocumentFragment();
 
-        // 为每个年份创建分组
         sortedYears.forEach(year => {
             // 创建年份标题
             const yearHeader = document.createElement('div');
             yearHeader.className = 'year-header';
-            yearHeader.style.display = 'block'; // 确保年份标题显示
             yearHeader.innerHTML = `<h3>${year} (${publicationsByYear[year].length})</h3>`;
             fragment.appendChild(yearHeader);
 
-            // 按日期排序该年份的文章（最新的在前）
+            // 该年份内按日期排序（最新在前）
             const yearPublications = publicationsByYear[year].sort((a, b) => {
-                const dateA = new Date(a.dataset.date + '-01');
-                const dateB = new Date(b.dataset.date + '-01');
+                const dateA = new Date((a.dataset.date || '1970-01') + '-01');
+                const dateB = new Date((b.dataset.date || '1970-01') + '-01');
                 return dateB - dateA;
             });
 
-            // 添加该年份的文章
             yearPublications.forEach(item => {
-                // 确保所有文章在show all模式下可见
-                item.style.display = 'flex';
                 fragment.appendChild(item);
             });
         });
 
-        // 一次性更新DOM
         publicationsList.innerHTML = '';
         publicationsList.appendChild(fragment);
+    }
+
+    function setLinkState(mode) {
+        if (mode === 'selected') {
+            showSelectedLink.classList.add('active');
+            showSelectedLink.classList.remove('inactive');
+            showAllLink.classList.remove('active');
+            showAllLink.classList.add('inactive');
+        } else {
+            showAllLink.classList.add('active');
+            showAllLink.classList.remove('inactive');
+            showSelectedLink.classList.remove('active');
+            showSelectedLink.classList.add('inactive');
+        }
+    }
+
+    // 显示已接收的文章（隐藏 under-review，隐藏年份标题）
+    function showSelectedPublications(options = { initial: false }) {
+        buildGroupedLayoutOnce();
+
+        if (currentMode === 'selected' && !options.initial) return;
+        currentMode = 'selected';
+
+        setLinkState('selected');
+
+        // 隐藏年份标题
+        const yearHeaders = publicationsList.querySelectorAll('.year-header');
+        yearHeaders.forEach(header => {
+            header.style.display = 'none';
+        });
+
+        // 只显示 accepted 的文章
+        const items = publicationsList.querySelectorAll('.publication-item');
+        items.forEach(item => {
+            if (item.dataset.status === 'accepted') {
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    // 显示所有文章（显示年份标题，所有条目都可见）
+    function showAllPublications() {
+        buildGroupedLayoutOnce();
+
+        if (currentMode === 'all') {
+            return;
+        }
+        currentMode = 'all';
+
+        setLinkState('all');
+
+        // 显示年份标题
+        const yearHeaders = publicationsList.querySelectorAll('.year-header');
+        yearHeaders.forEach(header => {
+            header.style.display = 'block';
+        });
+
+        // 显示所有条目
+        const items = publicationsList.querySelectorAll('.publication-item');
+        items.forEach(item => {
+            item.style.display = 'flex';
+        });
     }
 
     // 绑定点击事件
@@ -479,8 +492,8 @@ function setupPublicationsFilter() {
         showAllPublications();
     });
 
-    // 默认显示已选择的文章
-    showSelectedPublications();
+    // 默认显示已选择的文章（初始渲染）
+    showSelectedPublications({ initial: true });
 }
 
 // BibTeX 关键字高亮函数

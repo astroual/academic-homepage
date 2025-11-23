@@ -1579,8 +1579,14 @@ section[id] {
     margin-bottom: 15px;
 }
 
+/* 默认隐藏under-review文章，避免页面加载时的闪烁 */
+.publication-item[data-status="under-review"] {
+    display: none;
+}
+
 /* 年份分组标题样式 */
 .year-header {
+    display: none; /* 默认隐藏，JavaScript会在需要时显示 */
     padding-bottom: 8px;
 }
 
@@ -1622,6 +1628,20 @@ section[id] {
 .publications-section h2 #show-all-link.inactive {
     color: #000000;
     text-decoration: none;
+}
+
+/* Corresponding Author Note */
+.corresponding-author-note {
+    font-size: 16px;
+    color: #666;
+    font-style: italic;
+    margin-top: -8px;
+    margin-bottom: 15px;
+    padding-left: 2px;
+}
+
+[data-theme="dark"] .corresponding-author-note {
+    color: #999;
 }
 
 /* Education Section */

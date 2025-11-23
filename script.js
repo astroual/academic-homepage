@@ -370,8 +370,28 @@ function setupPublicationsFilter() {
 
     // 显示已接收的文章（没有under review标志）
     function showSelectedPublications() {
-        // 清空列表
-        publicationsList.innerHTML = '';
+        // 立即更新链接状态，提供即时视觉反馈
+        showSelectedLink.classList.add('active');
+        showSelectedLink.classList.remove('inactive');
+        showAllLink.classList.remove('active');
+        showAllLink.classList.add('inactive');
+
+        // 隐藏所有年份标题
+        document.querySelectorAll('.year-header').forEach(header => {
+            header.style.display = 'none';
+        });
+
+        // 隐藏under-review文章，显示accepted文章
+        allPublications.forEach(item => {
+            if (item.dataset.status === 'under-review') {
+                item.style.display = 'none';
+            } else {
+                item.style.display = 'flex';
+            }
+        });
+
+        // 使用DocumentFragment来批量操作DOM，提高性能
+        const fragment = document.createDocumentFragment();
 
         // 过滤已接收的文章
         const acceptedPublications = allPublications.filter(item => {
@@ -385,22 +405,26 @@ function setupPublicationsFilter() {
             return dateB - dateA;
         });
 
-        // 添加到列表
+        // 添加到fragment
         acceptedPublications.forEach(item => {
-            publicationsList.appendChild(item);
+            fragment.appendChild(item);
         });
 
-        // 更新链接状态
-        showSelectedLink.classList.add('active');
-        showSelectedLink.classList.remove('inactive');
-        showAllLink.classList.remove('active');
-        showAllLink.classList.add('inactive');
+        // 一次性更新DOM
+        publicationsList.innerHTML = '';
+        publicationsList.appendChild(fragment);
     }
 
     // 显示所有文章，按年份分组
     function showAllPublications() {
-        // 清空列表
-        publicationsList.innerHTML = '';
+        // 立即更新链接状态，提供即时视觉反馈
+        showAllLink.classList.add('active');
+        showAllLink.classList.remove('inactive');
+        showSelectedLink.classList.remove('active');
+        showSelectedLink.classList.add('inactive');
+
+        // 使用DocumentFragment来批量操作DOM，提高性能
+        const fragment = document.createDocumentFragment();
 
         // 按年份分组
         const publicationsByYear = {};
@@ -420,8 +444,9 @@ function setupPublicationsFilter() {
             // 创建年份标题
             const yearHeader = document.createElement('div');
             yearHeader.className = 'year-header';
+            yearHeader.style.display = 'block'; // 确保年份标题显示
             yearHeader.innerHTML = `<h3>${year} (${publicationsByYear[year].length})</h3>`;
-            publicationsList.appendChild(yearHeader);
+            fragment.appendChild(yearHeader);
 
             // 按日期排序该年份的文章（最新的在前）
             const yearPublications = publicationsByYear[year].sort((a, b) => {
@@ -432,35 +457,30 @@ function setupPublicationsFilter() {
 
             // 添加该年份的文章
             yearPublications.forEach(item => {
-                // 确保under-review文章在show all模式下可见
-                if (item.dataset.status === 'under-review') {
-                    item.style.display = 'flex';
-                }
-                publicationsList.appendChild(item);
+                // 确保所有文章在show all模式下可见
+                item.style.display = 'flex';
+                fragment.appendChild(item);
             });
         });
 
-        // 更新链接状态
-        showAllLink.classList.add('active');
-        showAllLink.classList.remove('inactive');
-        showSelectedLink.classList.remove('active');
-        showSelectedLink.classList.add('inactive');
+        // 一次性更新DOM
+        publicationsList.innerHTML = '';
+        publicationsList.appendChild(fragment);
     }
 
     // 绑定点击事件
-    showSelectedLink.addEventListener('click', showSelectedPublications);
-    showAllLink.addEventListener('click', showAllPublications);
-
-    // 默认显示已选择的文章 - 保存和恢复滚动位置以避免跳动
-    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // 使用requestAnimationFrame确保在DOM更新后恢复滚动位置
-    requestAnimationFrame(function() {
+    showSelectedLink.addEventListener('click', function(e) {
+        e.preventDefault();
         showSelectedPublications();
-        requestAnimationFrame(function() {
-            window.scrollTo(0, scrollY);
-        });
     });
+
+    showAllLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        showAllPublications();
+    });
+
+    // 默认显示已选择的文章
+    showSelectedPublications();
 }
 
 // BibTeX 关键字高亮函数

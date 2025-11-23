@@ -795,7 +795,6 @@ body {
 
 .right-content h2 {
     color: #2c5aa0;
-    margin-bottom: 15px;
     padding-bottom: 5px;
 }
 
@@ -1575,18 +1574,9 @@ section[id] {
     margin-bottom: 30px;
 }
 
-.publications-section h2 {
-    margin-bottom: 15px;
-}
-
-/* 默认隐藏under-review文章，避免页面加载时的闪烁 */
-.publication-item[data-status="under-review"] {
-    display: none;
-}
-
 /* 年份分组标题样式 */
 .year-header {
-    display: none; /* 默认隐藏，JavaScript会在需要时显示 */
+    display: block;
     padding-bottom: 8px;
 }
 
@@ -1598,46 +1588,19 @@ section[id] {
     margin-top: 10px;
 }
 
-.publications-section h2 #show-selected-link,
-.publications-section h2 #show-all-link {
-    transition: color 0.3s ease, text-decoration 0.3s ease;
-    cursor: pointer;
-    color: #000000;
-    font-weight: 600;
-}
-
-/* 默认状态：show selected 高亮 */
-.publications-section h2 #show-selected-link:not(.inactive) {
-    color: #2C5AA0;
-    text-decoration: underline;
-}
-
-.publications-section h2 #show-selected-link:hover,
-.publications-section h2 #show-all-link:hover {
-    text-decoration: underline;
-}
-
-.publications-section h2 #show-selected-link.active,
-.publications-section h2 #show-all-link.active {
-    color: #2C5AA0;
-    text-decoration: underline;
-}
-
-/* 非活跃状态 */
-.publications-section h2 #show-selected-link.inactive,
-.publications-section h2 #show-all-link.inactive {
-    color: #000000;
-    text-decoration: none;
+/* Publications 过滤头部 - 包含 corresponding author */
+.pub-filter-header {
+    margin-bottom: 20px;
 }
 
 /* Corresponding Author Note */
 .corresponding-author-note {
-    font-size: 16px;
+    font-size: 14px;
     color: #666;
     font-style: italic;
-    margin-top: -8px;
-    margin-bottom: 15px;
-    padding-left: 2px;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
 }
 
 [data-theme="dark"] .corresponding-author-note {

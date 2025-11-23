@@ -43,9 +43,9 @@
     <link rel="stylesheet" href="https://cdn.iocdn.cc/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="https://cdn.iocdn.cc/css2?family=Lora:wght@400;500;600;700&display=swap">
     <script defer src="https://events.vercount.one/js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20241123-001">
     <!-- <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script> -->
-    <script src="script.js"></script>
+    <script src="script.js?v=20241123-001"></script>
 </head>
 
 <body>
@@ -237,19 +237,18 @@
 
                 <!-- Publications Section -->
                 <section class="publications-section" id="publications">
-                    <h2>📝 Publications
-                        (
-                        <span id="show-selected-link" class="active" style="font-size: 16.848px;">show selected</span> /
-                        <span id="show-all-link" style="font-size: 16.848px;">show all by date</span>
-                        )
-                    </h2>
-                    <div class="corresponding-author-note">* corresponding author</div>
+                    <h2>📝 Publications</h2>
+                    <div class="pub-filter-header">
+                        <div class="corresponding-author-note">* corresponding author</div>
+                    </div>
                     <div class="publications-list">
+                        <!-- Year 2025 -->
+                        <div class="year-header"><h3>2025 (3)</h3></div>
                         <!-- Publication 2 -->
                         <div class="publication-item" data-date="2025-10" data-status="under-review">
                             <div class="pub-image">
                                 <span class="badge-blue">Under Review</span>
-                                <img src="https://yangyang666.oss-cn-chengdu.aliyuncs.com/academic/SFDMNet.png" alt="Publication Image">
+                                <img src="https://yangyang666.oss-cn-chengdu.aliyuncs.com/academic/SFDMNet.png" alt="Publication Image" loading="lazy">
                             </div>
                             <div class="pub-content">
                                 <div style="font-weight: bold;">SFDMNet: Symmetric Feature Distillation and Contrastive Fusion for Multimodal Brain Tumor Segmentation</div>
@@ -277,7 +276,7 @@
                             <div class="pub-image">
                                 <span class="badge-blue">Under Review</span>
                                 <img src="https://yangyang666.oss-cn-chengdu.aliyuncs.com/academic/Hi-ERMNet.png"
-                                    alt="Publication Image">
+                                    alt="Publication Image" loading="lazy">
                             </div>
                             <div class="pub-content">
                                 <div style="font-weight: bold;">Hi-ERMNet: A Hierarchical Edge Refinement Network and Lightweight Transformer Encoders for Retinal Vasculature Segmentation</div>
@@ -307,7 +306,7 @@
                             <div class="pub-image">
                                 <span class="badge-blue">TVC 2025</span>
                                 <img src="https://yangyang666.oss-cn-chengdu.aliyuncs.com/academic/mou.png"
-                                    alt="Publication Image">
+                                    alt="Publication Image" loading="lazy">
                             </div>
                             <div class="pub-content">
                                 <div style="font-weight: bold;">HSFPN-Det: An Effective Model for Detecting Rice Pests
@@ -333,12 +332,14 @@
                                 </ul>
                             </div>
                         </div>
+                        <!-- Year 2024 -->
+                        <div class="year-header"><h3>2024 (1)</h3></div>
                         <!-- Publication 1 -->
                         <div class="publication-item" data-date="2024-12" data-status="accepted">
                             <div class="pub-image">
                                 <span class="badge-blue">CGI 2024</span>
                                 <img src="https://yangyang666.oss-cn-chengdu.aliyuncs.com/academic/cgi.png"
-                                    alt="Publication Image">
+                                    alt="Publication Image" loading="lazy">
                             </div>
                             <div class="pub-content">
                                 <div style="font-weight: bold;">An Improved YOLOv8-Based Rice Pest and Disease Detection
@@ -497,7 +498,7 @@ organization={Springer}
                     </div>
                 </section>
 
-                <script src="https://giscus.app/client.js" 
+                <!-- <script src="https://giscus.app/client.js" 
                     data-repo="Louaq/academic-homepage"
                     data-repo-id="R_kgDOQRmNUQ" 
                     data-category="Announcements" 
@@ -510,7 +511,7 @@ organization={Springer}
                     data-theme="noborder_light" 
                     data-lang="zh-CN"
                     crossorigin="anonymous" async>
-                </script>
+                </script> -->
             </div>
         </div>
     </div>

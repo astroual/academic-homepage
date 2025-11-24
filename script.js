@@ -364,57 +364,70 @@ function setupPublicationsFilter() {
 
     if (!publicationsList || filterButtons.length === 0) return;
 
-    // 筛选函数
-    function filterByYear(year) {
-        const yearHeaders = publicationsList.querySelectorAll('.year-header');
-        const allItems = publicationsList.querySelectorAll('.publication-item');
+    // 缓存所有元素，避免重复查询DOM
+    const yearHeaders = Array.from(publicationsList.querySelectorAll('.year-header'));
+    const allItems = Array.from(publicationsList.querySelectorAll('.publication-item'));
 
+    // 筛选函数 - 直接操作style.display，确保立即生效，无延迟
+    function filterByYear(year) {
+        var i, headerYear, itemYear, header, item;
+        
         if (year === 'all') {
-            // 显示所有年份标题和文章
-            for (let i = 0; i < yearHeaders.length; i++) {
-                yearHeaders[i].classList.remove('year-hidden');
+            // 显示所有年份标题和文章 - 直接设置style，最快
+            for (i = 0; i < yearHeaders.length; i++) {
+                header = yearHeaders[i];
+                header.style.display = '';
+                header.classList.remove('year-hidden');
             }
-            for (let i = 0; i < allItems.length; i++) {
-                allItems[i].classList.remove('year-hidden');
+            for (i = 0; i < allItems.length; i++) {
+                item = allItems[i];
+                item.style.display = '';
+                item.classList.remove('year-hidden');
             }
         } else {
-            // 筛选年份标题
-            for (let i = 0; i < yearHeaders.length; i++) {
-                const headerYear = yearHeaders[i].getAttribute('data-year');
+            // 筛选年份标题和文章 - 直接设置style，最快
+            for (i = 0; i < yearHeaders.length; i++) {
+                header = yearHeaders[i];
+                headerYear = header.getAttribute('data-year');
                 if (headerYear === year) {
-                    yearHeaders[i].classList.remove('year-hidden');
+                    header.style.display = '';
+                    header.classList.remove('year-hidden');
                 } else {
-                    yearHeaders[i].classList.add('year-hidden');
+                    header.style.display = 'none';
+                    header.classList.add('year-hidden');
                 }
             }
-            // 筛选文章
-            for (let i = 0; i < allItems.length; i++) {
-                const itemYear = allItems[i].getAttribute('data-year');
+            for (i = 0; i < allItems.length; i++) {
+                item = allItems[i];
+                itemYear = item.getAttribute('data-year');
                 if (itemYear === year) {
-                    allItems[i].classList.remove('year-hidden');
+                    item.style.display = '';
+                    item.classList.remove('year-hidden');
                 } else {
-                    allItems[i].classList.add('year-hidden');
+                    item.style.display = 'none';
+                    item.classList.add('year-hidden');
                 }
             }
         }
     }
 
-    // 为每个按钮添加点击事件
+    // 为每个按钮添加点击事件 - 立即执行，无延迟
     filterButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
             const year = this.getAttribute('data-year');
 
-            // 移除所有按钮的 active 类
+            // 立即更新按钮状态
             filterButtons.forEach(function(btn) {
                 btn.classList.remove('active');
             });
-
-            // 为当前按钮添加 active 类
             this.classList.add('active');
 
-            // 执行筛选
+            // 立即执行筛选，同步操作确保无延迟
             filterByYear(year);
-        });
+        }, false);
     });
 
     // 初始化：显示所有文章

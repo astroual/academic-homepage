@@ -1609,6 +1609,13 @@ section[id] {
     display: none !important;
 }
 
+/* 优化年份筛选元素的渲染性能 */
+.year-header,
+.publication-item {
+    will-change: display;
+    contain: layout style;
+}
+
 /* 年份筛选按钮样式 */
 .year-filter-btn {
     padding: 5px 14px;

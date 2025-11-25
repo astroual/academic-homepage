@@ -841,23 +841,24 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // 点击事件
+    // 点击事件 - 优化：减少延迟，使用更快的滚动
     backToTopButton.addEventListener('click', function () {
         // 标记为程序性滚动
         window.isProgrammaticScroll = true;
 
+        // 使用 instant 滚动，立即跳转，避免卡顿
         window.scrollTo({
             top: 0,
-            behavior: 'smooth'
+            behavior: 'auto'
         });
 
         // 立即保存滚动位置
         sessionStorage.setItem('scrollPosition', '0');
 
-        // 程序性滚动完成后，延迟清除标记（给滚动动画时间）
+        // 快速清除标记
         setTimeout(function() {
             window.isProgrammaticScroll = false;
-        }, 1000);
+        }, 200);
     });
 });
 

@@ -18,6 +18,24 @@
       <link>https://yangyang.wiki/</link>
     </image>
     <item>
+      <title>SFDMNet: Symmetric Feature Distillation and Contrastive Fusion for Multimodal Brain Tumor Segmentation</title>
+      <description>A novel deep learning model for multimodal brain tumor segmentation using symmetric feature distillation and contrastive fusion. Currently under review. Authors: Yang Yang, Xiao Zhang, Jianlin Zhu, Pan Lai, Bo Yang, Meng Shi, Huazhu Fu, Yang Wen, Jin Huang, Bin Sheng.</description>
+      <pubDate>Wed, 01 Oct 2025 00:00:00 +0800</pubDate>
+      <link>https://yangyang.wiki/#publications</link>
+      <guid isPermaLink="false">publication-sfdmnet-2025</guid>
+      <category>Publication</category>
+      <author>yangyang@mail.scuec.edu.cn (Yang Yang)</author>
+    </item>
+    <item>
+      <title>Hi-ERMNet: A Hierarchical Edge Refinement Network and Lightweight Transformer Encoders for Retinal Vasculature Segmentation</title>
+      <description>A hierarchical edge refinement network with lightweight transformer encoders for retinal vasculature segmentation. Currently under review. Authors: Yang Yang, Xuyan Huang, Xiao Zhang, Jianlin Zhu, Pan Lai, Bo Yang, Meng Shi, Zimao Li, Jun Tie, Huazhu Fu, Yang Wen, Jin Huang, Bin Sheng.</description>
+      <pubDate>Wed, 01 Oct 2025 00:00:00 +0800</pubDate>
+      <link>https://yangyang.wiki/#publications</link>
+      <guid isPermaLink="false">publication-hi-ermnet-2025</guid>
+      <category>Publication</category>
+      <author>yangyang@mail.scuec.edu.cn (Yang Yang)</author>
+    </item>
+    <item>
       <title>Paper Accepted at TVC 2025</title>
       <description>One paper titled "HSFPN-Det: An Effective Model for Detecting Rice Pests and Diseases" was accepted by The Visual Computer (TVC) journal in October 2025.</description>
       <pubDate>Wed, 01 Oct 2025 00:00:00 +0800</pubDate>

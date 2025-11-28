@@ -38,14 +38,22 @@
             }
         })();
     </script>
-    <link rel="stylesheet" href="https://cdnjs.webstatic.cn/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.webstatic.cn/ajax/libs/academicons/1.9.4/css/academicons.min.css">
-    <link rel="stylesheet" href="https://cdn.iocdn.cc/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="https://cdn.iocdn.cc/css2?family=Lora:wght@400;500;600;700&display=swap">
-    <script defer src="https://events.vercount.one/js"></script>
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="style.css?v=20241123-001" as="style">
+    <link rel="preload" href="script.js?v=20241123-001" as="script">
+
+    <!-- 关键CSS优先加载 -->
     <link rel="stylesheet" href="style.css?v=20241123-001">
-    <!-- <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script> -->
-    <script src="script.js?v=20241123-001"></script>
+
+    <!-- 非关键CSS延迟加载 -->
+    <link rel="stylesheet" href="https://cdnjs.webstatic.cn/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.webstatic.cn/ajax/libs/academicons/1.9.4/css/academicons.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.iocdn.cc/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.iocdn.cc/css2?family=Lora:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+
+    <!-- 非关键脚本延迟加载 -->
+    <script defer src="https://events.vercount.one/js"></script>
+    <script defer src="script.js?v=20241123-001"></script>
 </head>
 
 <body>
@@ -151,7 +159,7 @@
                         <img src="https://yangyang666.oss-cn-chengdu.aliyuncs.com/academic/profile.png"
                             alt="YangYang Profile Photo">
                     </div>
-                    <div class="profile-name">Yang Yang (杨杨)</div>
+                    <div class="profile-name">Yang Yang <img src="https://pic1.imgdb.cn/item/692983567f8e1c7378238fce.png" alt="鲁迅字体"></div>
                     <div class="profile-bio">Focusing on Multimodal Medical Image Analysis and Computer Vision.</div>
                     <div class="profile-links">
                         <div class="profile-link-item location-link">
@@ -528,9 +536,6 @@ organization={Springer}
                             <li>FOLLOW:</li>
                             <li><a href="feed.xml" target="_blank"><i class="fa fa-fw fa-rss-square"
                                         aria-hidden="true"></i>FEED</a></li>
-                            <li><a href="https://github.com/Visual-Medical" target="_blank"><img
-                                        src="https://yangyang666.oss-cn-chengdu.aliyuncs.com/images/visual-medical.png"
-                                        alt="Visual Medical" class="org-logo">Visual Medical</a></li>
                         </ul>
                     </div>
                     <div class="page__footer-copyright">
@@ -558,22 +563,8 @@ organization={Springer}
     <div class="back-to-top" id="backToTop">
         <i class="fas fa-arrow-up"></i>
     </div>
-    <!-- <div id="live2d-widget"></div>
 
-    <script>
-        // 配置 Live2D 看板娘
-        window.addEventListener('load', function() {
-            // 确保看板娘在左下角显示
-            const live2dWidget = document.getElementById('live2d-widget');
-            if (live2dWidget) {
-                live2dWidget.style.position = 'fixed';
-                live2dWidget.style.left = '0';
-                live2dWidget.style.bottom = '0';
-                live2dWidget.style.zIndex = '999';
-                live2dWidget.style.pointerEvents = 'none';
-            }
-        });
-    </script> -->
+
 
 </body>
 

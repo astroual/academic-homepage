@@ -647,12 +647,21 @@ body {
 
 .profile-name {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 24px;
     margin: 15px auto 10px auto;
     color: #333;
     text-align: center;
     width: 100%;
-    max-width: 200px;
+    max-width: 280px;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+.profile-name img {
+    vertical-align: middle;
+    width: auto;
+    display: inline-block;
 }
 
 .profile-bio {
@@ -2425,7 +2434,7 @@ section[id] {
 
     .year-filter-btn {
         padding: 5px 14px;
-        font-size: 13px;
+        font-size: 16px;
     }
 
     .header-content {
@@ -3199,15 +3208,6 @@ section[id] {
     width: 100%;
 }
 
-.profile-name {
-    font-weight: bold;
-    margin: 10px auto;
-    color: #2C5AA0;
-    text-align: center;
-    width: 100%;
-    max-width: 200px;
-}
-
 .profile-title {
     margin: 5px 0;
     color: #555;
@@ -3546,6 +3546,9 @@ section[id] {
     /* 姓名居中对齐，描述和链接列表左对齐 */
     .profile-name {
         text-align: center !important;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: visible;
     }
     
     .profile-bio,
@@ -3577,7 +3580,7 @@ section[id] {
     /* 小屏幕年份筛选按钮样式 */
     .year-filter-btn {
         padding: 4px 12px;
-        font-size: 12px;
+        font-size: 16px;
     }
 }
 
@@ -3778,22 +3781,3 @@ section[id] {
     color: #e0e0e0;
 }
 
-/* Live2D 看板娘样式 */
-/* #live2d-widget {
-    position: fixed !important;
-    left: 0 !important;
-    bottom: 0 !important;
-    z-index: 999 !important;
-    pointer-events: auto !important;
-}
-
-#live2d-widget canvas {
-    pointer-events: auto !important;
-}
-
-/* 移动端隐藏看板娘（可选，根据需求调整） */
-/*@media (max-width: 768px) {
-    #live2d-widget {
-        display: none;
-    }
-} */

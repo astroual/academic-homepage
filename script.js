@@ -1,9 +1,4 @@
 (function () {
-    // 初始化主题
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', initialTheme);
 
     // 全局变量
     window.isProgrammaticScroll = false;
@@ -803,58 +798,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
-// 暗亮模式切换功能
-document.addEventListener('DOMContentLoaded', function () {
-    const themeToggle = document.getElementById('themeToggle');
-    
-    if (!themeToggle) return;
-    
-    // 更新图标
-    function updateThemeIcon(theme) {
-        const sunIcon = themeToggle.querySelector('.sun-icon');
-        const moonIcon = themeToggle.querySelector('.moon-icon');
-        if (theme === 'dark') {
-            // 暗黑模式：显示月亮图标
-            if (sunIcon) sunIcon.style.display = 'none';
-            if (moonIcon) moonIcon.style.display = 'block';
-        } else {
-            // 明亮模式：显示太阳图标
-            if (sunIcon) sunIcon.style.display = 'block';
-            if (moonIcon) moonIcon.style.display = 'none';
-        }
-    }
-
-    function applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        updateThemeIcon(theme);
-    }
-    
-    // 初始化图标
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    updateThemeIcon(currentTheme);
-    
-    // 切换主题（带视图过渡）
-    themeToggle.addEventListener('click', function (event) {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        applyTheme(newTheme);
-    });
-    
-    // 监听系统主题变化
-    if (window.matchMedia) {
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        mediaQuery.addEventListener('change', function(e) {
-            // 只有在用户没有手动设置主题时才跟随系统
-            if (!localStorage.getItem('theme')) {
-                const newTheme = e.matches ? 'dark' : 'light';
-                applyTheme(newTheme);
-            }
-        });
-    }
-});
-
 // 回到顶部按钮功能
 document.addEventListener('DOMContentLoaded', function () {
     const backToTopButton = document.getElementById('backToTop');

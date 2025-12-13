@@ -636,15 +636,6 @@ body {
 .profile-link-item.orcid-link:hover i {
     color: #a6ce39;
 }
-
-.profile-link-item.openreview-link i {
-    color: #FF6B35;
-}
-
-.profile-link-item.openreview-link:hover i {
-    color: #FF6B35;
-}
-
 .profile-link-item.steam-link i {
     color: #1b2838; /* Steam深蓝色 */
 }
@@ -2273,6 +2264,9 @@ section[id] {
         width: 28px;
         font-size: 24px;
     }
+    .profile-link-item.openreview-link i {
+        display: none;
+    }
 
     .right-content {
         width: 100%;
@@ -2842,6 +2836,9 @@ section[id] {
     .profile-link-item i {
         width: 28px;
         font-size: 28px;
+    }
+    .profile-link-item.openreview-link i {
+        display: none;
     }
 
     .profile-photo img {

@@ -582,7 +582,7 @@ body {
 
 /* 特定图标的颜色 - hover时保持原色 */
 .profile-link-item.location-link {
-    display: none;
+    color: #333;
 }
 
 .profile-link-item.location-link:hover {
@@ -2271,7 +2271,8 @@ section[id] {
         width: 28px;
         font-size: 24px;
     }
-    .profile-link-item.openreview-link i {
+    /* 移动端隐藏 location-link */
+    .profile-link-item.location-link {
         display: none;
     }
 
@@ -2844,7 +2845,8 @@ section[id] {
         width: 28px;
         font-size: 28px;
     }
-    .profile-link-item.openreview-link i {
+    /* 移动端隐藏 location-link */
+    .profile-link-item.location-link {
         display: none;
     }
 

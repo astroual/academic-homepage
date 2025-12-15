@@ -381,6 +381,35 @@ function disableUnderReviewLinks() {
     });
 }
 
+// 动态计算并更新年份标题中的数量
+function updateYearCounts() {
+    const publicationsList = document.querySelector('.publications-list');
+    if (!publicationsList) return;
+
+    const yearHeaders = publicationsList.querySelectorAll('.year-header');
+    const allItems = publicationsList.querySelectorAll('.publication-item');
+
+    // 统计每个年份的出版物数量
+    const yearCounts = {};
+    allItems.forEach(item => {
+        const year = item.getAttribute('data-year');
+        if (year) {
+            yearCounts[year] = (yearCounts[year] || 0) + 1;
+        }
+    });
+
+    // 更新每个年份标题
+    yearHeaders.forEach(header => {
+        const year = header.getAttribute('data-year');
+        const h3 = header.querySelector('h3');
+        if (h3 && year) {
+            const count = yearCounts[year] || 0;
+            // 直接使用 data-year 属性中的年份，确保准确性
+            h3.textContent = `${year} (${count})`;
+        }
+    });
+}
+
 // Publications 初始化 - 显示所有文章和年份标题
 function setupPublicationsFilter() {
     const publicationsList = document.querySelector('.publications-list');
@@ -754,6 +783,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setupSmoothScrolling();
     setupMobileMenu();
     disableUnderReviewLinks();
+    updateYearCounts(); // 动态计算并更新年份数量
     setupPublicationsFilter();
     setupBibtexPanel(); // 初始化BibTeX面板
     setupEmailCopy(); // 初始化邮件复制功能

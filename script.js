@@ -739,6 +739,109 @@ function setupEmailCopy() {
     });
 }
 
+// 天气组件功能
+function setupWeatherWidget() {
+    const weatherWidget = document.getElementById('weatherWidget');
+    if (!weatherWidget) return;
+
+    // 配置信息
+    const config = {
+        // 使用 OpenWeatherMap 免费 API（需要注册获取 API Key）
+        apiKey: '30acd16e894e76bac5d170e923022fd7', // 替换为你的 API Key
+        city: 'Wuhan',
+        countryCode: 'CN',
+        units: 'metric', // metric = 摄氏度, imperial = 华氏度
+        lang: 'en' // 英文
+    };
+
+    // 天气图标映射（使用 Font Awesome 图标）
+    const weatherIcons = {
+        '01d': '☀️', '01n': '🌙',
+        '02d': '⛅', '02n': '☁️',
+        '03d': '☁️', '03n': '☁️',
+        '04d': '☁️', '04n': '☁️',
+        '09d': '🌧️', '09n': '🌧️',
+        '10d': '🌦️', '10n': '🌧️',
+        '11d': '⛈️', '11n': '⛈️',
+        '13d': '❄️', '13n': '❄️',
+        '50d': '🌫️', '50n': '🌫️'
+    };
+
+    // 获取天气数据
+    async function fetchWeather() {
+        try {
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${config.city},${config.countryCode}&appid=${config.apiKey}&units=${config.units}&lang=${config.lang}`;
+            
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('天气数据获取失败');
+            }
+            
+            const data = await response.json();
+            displayWeather(data);
+        } catch (error) {
+            displayError();
+        }
+    }
+
+    // 显示天气信息（简化版：显示城市、温度和天气图标）
+    function displayWeather(data) {
+        const temp = Math.round(data.main.temp);
+        const cityName = data.name;
+        const weatherCode = data.weather[0].icon;
+        
+        // 天气图标映射
+        const weatherIconMap = {
+            '01d': '☀️', // 晴天
+            '01n': '🌙', // 晴夜
+            '02d': '🌤️', // 少云（白天）
+            '02n': '☁️', // 少云（夜晚）
+            '03d': '☁️', // 多云
+            '03n': '☁️', // 多云
+            '04d': '☁️', // 阴天
+            '04n': '☁️', // 阴天
+            '09d': '🌧️', // 阵雨
+            '09n': '🌧️', // 阵雨
+            '10d': '🌦️', // 小雨（白天）
+            '10n': '🌧️', // 小雨（夜晚）
+            '11d': '⛈️', // 雷暴
+            '11n': '⛈️', // 雷暴
+            '13d': '❄️', // 雪
+            '13n': '❄️', // 雪
+            '50d': '🌫️', // 雾
+            '50n': '🌫️'  // 雾
+        };
+        
+        const weatherIcon = weatherIconMap[weatherCode] || '🌤️';
+
+        weatherWidget.innerHTML = `
+            <div class="weather-content-simple">
+                <div class="weather-left">
+                    <div class="weather-city-simple">${cityName}</div>
+                    <div class="weather-temp-simple">${temp}°C</div>
+                </div>
+                <div class="weather-icon-simple">${weatherIcon}</div>
+            </div>
+        `;
+    }
+
+    // 显示错误信息
+    function displayError() {
+        weatherWidget.innerHTML = `
+            <div class="weather-error">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>天气数据加载失败</span>
+            </div>
+        `;
+    }
+
+    // 初始化：加载天气数据
+    fetchWeather();
+    
+    // 每30分钟更新一次天气
+    setInterval(fetchWeather, 30 * 60 * 1000);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     // 设置当前年份
     const currentYearElement = document.getElementById('current-year');
@@ -753,6 +856,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setupPublicationsFilter();
     setupBibtexPanel(); // 初始化BibTeX面板
     setupEmailCopy(); // 初始化邮件复制功能
+    setupWeatherWidget(); // 初始化天气组件
     
     // 处理浏览器后退/前进按钮
     window.addEventListener('popstate', function() {
